@@ -1,0 +1,27 @@
+(ns cemerick.webdeploy.ops.crate
+ (:use (clojure.contrib strint core))
+ (:require
+   (pallet core resource)
+   pallet.resource.service
+   (pallet.crate
+     [tomcat :as tomcat]
+     [etc-default :as default])))
+
+(defn tomcat-deploy
+  "Deploys the specified .war file to tomcat.  An optional :port kwarg
+   defines the port that tomcat will serve on (defaults to 80)."
+  [pallet-request warfile & {:keys [port] :or {port 80}}]
+  (pallet.resource.service/with-restart pallet-request "tomcat*"
+    (default/write "tomcat6"
+      ; configure tomcat's heap to utilize 2/3 of machine's available memory
+      :JAVA_OPTS "-Xmx$(( `grep MemTotal /proc/meminfo | grep -oP '\\d+'` * 2 / 3 ))000")
+    ; clojure apps need wider (classloader) permissions than tomcat's default (keeping it simple here)
+    (tomcat/policy 100 "webdeploydemo"
+      {nil ["permission java.security.AllPermission"]})
+    (tomcat/server-configuration
+      (tomcat/server
+        (tomcat/service
+          (tomcat/connector :port (str port) :protocol "HTTP/1.1"
+            :connectionTimeout "20000"
+            :redirectPort "8443"))))
+    (tomcat/deploy "ROOT" :local-file warfile :clear-existing true)))
