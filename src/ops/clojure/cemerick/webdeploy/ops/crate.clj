@@ -14,10 +14,9 @@
   (pallet.resource.service/with-restart pallet-request "tomcat*"
     (default/write "tomcat6"
       ; configure tomcat's heap to utilize 2/3 of machine's available memory
-      :JAVA_OPTS "-Xmx$(( `grep MemTotal /proc/meminfo | grep -oP '\\d+'` * 2 / 3 ))000")
-    ; clojure apps need wider (classloader) permissions than tomcat's default (keeping it simple here)
-    (tomcat/policy 100 "webdeploydemo"
-      {nil ["permission java.security.AllPermission"]})
+      :JAVA_OPTS "-Xmx$(( `grep MemTotal /proc/meminfo | grep -oP '\\d+'` * 2 / 3 ))000"
+      ; allow tomcat to run on ports < 1024
+      :AUTHBIND "yes")
     (tomcat/server-configuration
       (tomcat/server
         (tomcat/service

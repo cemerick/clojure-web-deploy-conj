@@ -31,11 +31,11 @@
    ; (strongly recommended for real usage!)
    ; :image-id "us-east-1/ami-508c7839"
    ; :hardware-id "m1.small"
-   :inbound-ports [22 8080]}
+   :inbound-ports [22 80]}
   :bootstrap (pallet.resource/phase 
                (admin/automated-admin-user))
   :configure (pallet.resource/phase
                (pallet.crate.java/java :openjdk)
                (tomcat/tomcat))
   :deploy (pallet.resource/phase
-            (webdeploy-crate/tomcat-deploy warfile-path :port 8080)))
+            (webdeploy-crate/tomcat-deploy warfile-path)))
