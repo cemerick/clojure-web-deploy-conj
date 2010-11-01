@@ -7,6 +7,6 @@
 
 (defservice
   (GET "*" {:keys [uri]}
-    (format "<html><p>%s</p><p>Screencasts are fun, too.</p>URL requested: %s</html>"
+    (format "<html><p>%s</p>URL requested: %s</html>"
       "<b>Deploying with pallet, jclouds, and Hudson is fantastic! :-)</b>"
       uri)))
