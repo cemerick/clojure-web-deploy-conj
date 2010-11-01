@@ -13,8 +13,14 @@
   [pallet-request warfile & {:keys [port] :or {port 80}}]
   (pallet.resource.service/with-restart pallet-request "tomcat*"
     (default/write "tomcat6"
-      ; configure tomcat's heap to utilize 2/3 of machine's available memory
-      :JAVA_OPTS "-Xmx$(( `grep MemTotal /proc/meminfo | grep -oP '\\d+'` * 2 / 3 ))000"
+      ; configure tomcat's heap to utilize 2/3 of machine's total memory
+      :JAVA_OPTS (->> pallet-request
+                   :target-node
+                   .getHardware
+                   .getRam
+                   (* 0.66)
+                   int
+                   (format "-Xmx%sm"))
       ; allow tomcat to run on ports < 1024
       :AUTHBIND "yes")
     (tomcat/server-configuration
