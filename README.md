@@ -6,7 +6,7 @@ as I described at a high level in my talk at the [first Clojure Conj](http://fir
 in October, 2010.
 
 An accompanying screencast and slides from that talk are available
-[here](http://cemerick.com/2010/11/01/continuous-deployment-of-clojure-web-applications). 
+[here](http://cemerick.com/2010/11/02/continuous-deployment-of-clojure-web-applications). 
 
 A slight disclaimer: what is contained herein and discussed in the screencast is by no means an *ideal* web application
 deployment process.  It is only meant to be an easy-to-understand first step into using pallet, jclouds, and Hudson.
