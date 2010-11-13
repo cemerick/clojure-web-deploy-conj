@@ -94,6 +94,10 @@
             <id>sonatype-oss</id>
             <url>https://oss.sonatype.org/content/repositories/releases</url>
         </repository>
+                <repository>
+                    <id>sonatype-oss-snapshots</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </repository>
         <repository>
             <id>clojure</id>
             <url>http://build.clojure.org/releases</url>
@@ -117,31 +121,31 @@
                 <dependency>
                     <groupId>org.cloudhoist</groupId>
                     <artifactId>pallet</artifactId>
-                    <version>0.2.0</version>
+                    <version>0.3.0-SNAPSHOT</version>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.jclouds</groupId>
                     <artifactId>jclouds-aws</artifactId>
-                    <version>1.0-beta-7</version>
+                    <version>1.0-SNAPSHOT</version>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.jclouds</groupId>
                     <artifactId>jclouds-jsch</artifactId>
-                    <version>1.0-beta-7</version>
+                    <version>1.0-SNAPSHOT</version>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.jclouds</groupId>
                     <artifactId>jclouds-log4j</artifactId>
-                    <version>1.0-beta-7</version>
+                    <version>1.0-SNAPSHOT</version>
                     <scope>provided</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.jclouds</groupId>
                     <artifactId>jclouds-compute</artifactId>
-                    <version>1.0-beta-7</version>
+                    <version>1.0-SNAPSHOT</version>
                     <scope>provided</scope>
                 </dependency>
             </dependencies>
