@@ -2,7 +2,7 @@
  (:use (clojure.contrib strint core))
  (:require
    [cemerick.webdeploy.ops.nodes :as webdeploy-nodes]
-   pallet.core
+   (pallet core compute)
    [org.jclouds.compute :as jcompute]
    [clojure.contrib.logging :as log]))
 
@@ -11,7 +11,8 @@
     (let [id (System/getProperty "aws.id")
           secret-key (System/getProperty "aws.secret-key")]
       (assert (and id secret-key))
-      (jcompute/compute-service "ec2" id secret-key :ssh :log4j))))
+      (pallet.compute/compute-service "ec2"
+        :identity id :credential secret-key :extensions [:ssh :log4j]))))
 
 (defn deploy
   [prefix]
